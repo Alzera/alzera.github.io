@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CommandInput } from './CommandInput';
-import { TextOutput } from './TextOutput';
 import { HelpOutput } from './commands/HelpOutput';
 import { AboutOutput } from './commands/AboutOutput';
 import { SkillsOutput } from './commands/SkillsOutput';
@@ -8,6 +7,7 @@ import { ProjectsOutput } from './commands/ProjectsOutput';
 import { ContactOutput } from './commands/ContactOutput';
 import { NotFoundOutput } from './commands/NotFoundOutput';
 import './Terminal.css';
+import { WelcomeOutput } from './commands/WelcomeOutput';
 
 interface HistoryItem {
   id: string;
@@ -19,10 +19,18 @@ export const Terminal: React.FC = () => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [isInputVisible, setIsInputVisible] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const hasInitialized = useRef(false);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [history, isInputVisible]);
+
+  useEffect(() => {
+    if (!hasInitialized.current) {
+      hasInitialized.current = true;
+      handleCommand('welcome');
+    }
+  }, []);
 
   const handleCommand = (cmd: string) => {
     const trimmedCmd = cmd.trim().toLowerCase();
@@ -35,6 +43,9 @@ export const Terminal: React.FC = () => {
     let outputContent: React.ReactNode;
 
     switch (trimmedCmd) {
+      case 'welcome':
+        outputContent = <WelcomeOutput onComplete={onOutputComplete} />;
+        break;
       case 'help':
         outputContent = <HelpOutput onComplete={onOutputComplete} />;
         break;
@@ -51,12 +62,19 @@ export const Terminal: React.FC = () => {
         outputContent = <ContactOutput onComplete={onOutputComplete} />;
         break;
       case 'clear':
-        setHistory([]);
+        setHistory([{
+          id: Date.now().toString(),
+          command: cmd,
+          output: <WelcomeOutput onComplete={onOutputComplete} />,
+        }]);
         setIsInputVisible(true);
         return;
       case '':
-        outputContent = null;
-        setIsInputVisible(true);
+        if (history.at(-1)?.command === '') {
+          outputContent = <NotFoundOutput showHelp cmd={trimmedCmd} onComplete={onOutputComplete} />;
+        } else {
+          outputContent = <NotFoundOutput cmd={trimmedCmd} onComplete={onOutputComplete} />;
+        }
         break;
       default:
         outputContent = <NotFoundOutput cmd={trimmedCmd} onComplete={onOutputComplete} />;
@@ -77,10 +95,6 @@ export const Terminal: React.FC = () => {
   return (
     <div className="terminal-container">
       <div className="terminal-content">
-        <div className="welcome-message">
-          <TextOutput>Welcome to Alzera's Terminal. Type 'help' to get started.</TextOutput>
-        </div>
-        
         {history.map((item) => (
           <div key={item.id} className="history-item">
             <div className="command-line">

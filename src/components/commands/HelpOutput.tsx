@@ -5,16 +5,14 @@ interface HelpOutputProps {
   onComplete?: () => void;
 }
 
-export const HelpOutput: React.FC<HelpOutputProps> = ({ onComplete }) => {
-  return (
-    <TextOutput onComplete={onComplete}>
-      {`Available commands:
+export const helpText = `Available commands:
   about    - Who am I?
   skills   - What I can do
   projects - My works
   contact  - How to reach me
   clear    - Clear the terminal
-  help     - Show this help message`}
-    </TextOutput>
-  );
+  help     - Show this help message`
+
+export const HelpOutput: React.FC<HelpOutputProps> = ({ onComplete }) => {
+  return <TextOutput onComplete={onComplete}>{helpText}</TextOutput>;
 };
