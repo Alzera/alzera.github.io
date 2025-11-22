@@ -1,0 +1,10 @@
+.app-container {
+  min-height: 95vh;
+  background-color: #121111;
+  color: #e5e7eb;
+}
+
+::selection {
+  background-color: #14532d; /* bg-green-900 */
+  color: white;
+}
