@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextOutput } from '../TextOutput';
 import { Sequencer } from '../Sequencer';
-import { FaUser, FaCode, FaLaptopCode, FaEnvelope, FaEraser, FaQuestionCircle } from 'react-icons/fa';
+import { FaUser, FaCode, FaLaptopCode, FaEnvelope, FaEraser, FaQuestionCircle, FaPalette } from 'react-icons/fa';
 
 const CommandRow: React.FC<{
   cmd: string;
@@ -43,6 +43,7 @@ export const HelpOutput: React.FC<{
     { cmd: 'skills', desc: 'What I can do', icon: <FaCode />, color: 'text-blue-400' },
     { cmd: 'projects', desc: 'My works', icon: <FaLaptopCode />, color: 'text-green-400' },
     { cmd: 'contact', desc: 'How to reach me', icon: <FaEnvelope />, color: 'text-cyan-400' },
+    { cmd: 'theme', desc: 'Switch theme (--dark, --light, or auto)', icon: <FaPalette />, color: 'text-pink-400' },
     { cmd: 'clear', desc: 'Clear the terminal', icon: <FaEraser />, color: 'text-red-400' },
     { cmd: 'help', desc: 'Show this help message', icon: <FaQuestionCircle />, color: 'text-purple-400' },
   ];

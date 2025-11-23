@@ -18,6 +18,10 @@ interface HistoryItem {
 export const Terminal: React.FC = () => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [isInputVisible, setIsInputVisible] = useState(true);
+  const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>(() => {
+    const saved = localStorage.getItem('theme') as 'light' | 'dark' | 'auto' | null;
+    return saved || 'dark';
+  });
   const bottomRef = useRef<HTMLDivElement>(null);
   const hasInitialized = useRef(false);
 
@@ -32,8 +36,24 @@ export const Terminal: React.FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    const html = document.documentElement;
+
+    if (theme === 'auto') {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      html.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+    } else {
+      html.setAttribute('data-theme', theme);
+    }
+  }, [theme]);
+
   const handleCommand = (cmd: string) => {
     const trimmedCmd = cmd.trim().toLowerCase();
+    const parts = trimmedCmd.split(/\s+/);
+    const baseCmd = parts[0];
+    const flag = parts[1];
+
     setIsInputVisible(false);
 
     const onOutputComplete = () => {
@@ -42,7 +62,7 @@ export const Terminal: React.FC = () => {
 
     let outputContent: React.ReactNode;
 
-    switch (trimmedCmd) {
+    switch (baseCmd) {
       case 'welcome':
         outputContent = <WelcomeOutput onComplete={onOutputComplete} />;
         break;
@@ -61,6 +81,18 @@ export const Terminal: React.FC = () => {
       case 'contact':
         outputContent = <ContactOutput onComplete={onOutputComplete} />;
         break;
+      case 'theme': {
+        let newTheme: 'light' | 'dark' | 'auto' = 'auto';
+        if (flag === '--dark') {
+          newTheme = 'dark';
+        } else if (flag === '--light') {
+          newTheme = 'light';
+        }
+        setTheme(newTheme);
+        outputContent = <></>;
+        onOutputComplete();
+        break;
+      }
       case 'clear':
         setHistory([{
           id: Date.now().toString(),
