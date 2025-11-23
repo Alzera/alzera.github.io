@@ -1,5 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 
+const COMMANDS = [
+  "help",
+  "about",
+  "skills",
+  "skills --list",
+  "projects",
+  "contact",
+  "theme",
+  "theme --dark",
+  "theme --light",
+  "clear",
+];
+
 export const CommandInput: React.FC<{
   onSubmit: (command: string) => void;
   history: string[];
@@ -7,6 +20,7 @@ export const CommandInput: React.FC<{
   const [input, setInput] = useState("");
   const [historyIndex, setHistoryIndex] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -24,8 +38,27 @@ export const CommandInput: React.FC<{
     };
   }, []);
 
+  const getSuggestion = (): string => {
+    if (!input.trim()) return "";
+
+    const lowerInput = input.toLowerCase();
+    const match = COMMANDS.find(
+      (cmd) =>
+        cmd.toLowerCase().startsWith(lowerInput) &&
+        cmd.toLowerCase() !== lowerInput,
+    );
+
+    return match ? match.slice(input.length) : "";
+  };
+
+  const suggestion = getSuggestion();
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
+    if (e.key === "Tab" && suggestion) {
+      e.preventDefault();
+      setInput(input + suggestion);
+      setHistoryIndex(null);
+    } else if (e.key === "Enter") {
       onSubmit(input);
       setInput("");
       setHistoryIndex(null);
@@ -57,17 +90,27 @@ export const CommandInput: React.FC<{
   return (
     <div className="flex w-full items-center">
       <span className="mr-2 text-green-500">user@alzera:~$</span>
-      <input
-        ref={inputRef}
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={handleKeyDown}
-        className="grow border-none bg-transparent font-mono text-base text-gray-900 outline-none dark:text-gray-200"
-        autoFocus
-        spellCheck={false}
-        autoComplete="off"
-      />
+      <div ref={containerRef} className="relative grow">
+        <input
+          ref={inputRef}
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="w-full border-none bg-transparent font-mono text-base text-gray-900 outline-none dark:text-gray-200"
+          autoFocus
+          spellCheck={false}
+          autoComplete="off"
+        />
+        {suggestion && (
+          <span
+            className="pointer-events-none absolute top-0 left-0 font-mono text-base text-gray-400 dark:text-gray-600"
+            aria-hidden="true">
+            <span className="invisible">{input}</span>
+            {suggestion}
+          </span>
+        )}
+      </div>
     </div>
   );
 };
