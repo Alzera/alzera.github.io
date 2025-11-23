@@ -13,7 +13,7 @@ const AboutHeader: React.FC<{
       <img
         src="https://res.cloudinary.com/dxx6qbtq6/image/upload/f_auto,q_auto,w_100,h_100/bn1ppo90cq42zgugzowg"
         alt="Profile"
-        className="w-18 h-18 rounded-full border-2 border-green-500"
+        className="w-12 h-12 rounded-full border-2 border-green-500"
       />
       <div className='flex flex-col justify-center'>
         <span className="text-xl font-bold text-green-400">
