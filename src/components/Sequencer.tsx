@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { TextOutput } from './TextOutput';
+import React, { useEffect, useState } from "react";
 
-interface SequencerProps {
+import { TextOutput } from "./TextOutput";
+
+export const Sequencer: React.FC<{
   children: React.ReactNode;
   onComplete?: () => void;
-}
-
-export const Sequencer: React.FC<SequencerProps> = ({ children, onComplete }) => {
+}> = ({ children, onComplete }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const childrenArray = React.Children.toArray(children);
 
@@ -32,7 +31,7 @@ export const Sequencer: React.FC<SequencerProps> = ({ children, onComplete }) =>
                 onComplete: handleChildComplete,
               });
             } else {
-              setTimeout(handleChildComplete, 100); 
+              setTimeout(handleChildComplete, 100);
               return child;
             }
           }

@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
-import { useTypewriter } from '../hooks/useTypewriter';
+import React, { useEffect } from "react";
 
-interface TextOutputProps {
+import { useTypewriter } from "../hooks/useTypewriter";
+
+export const TextOutput: React.FC<{
   children: string;
   onComplete?: () => void;
   className?: string;
-}
-
-export const TextOutput: React.FC<TextOutputProps> = ({ children, onComplete, className = '' }) => {
+}> = ({ children, onComplete, className = "" }) => {
   const { displayedText, isTyping } = useTypewriter(children);
 
   useEffect(() => {

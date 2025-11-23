@@ -1,6 +1,7 @@
-import React from 'react';
-import { Sequencer } from '../Sequencer';
-import { TextOutput } from '../TextOutput';
+import React from "react";
+
+import { Sequencer } from "../Sequencer";
+import { TextOutput } from "../TextOutput";
 
 const AboutHeader: React.FC<{
   onComplete?: () => void;
@@ -13,9 +14,9 @@ const AboutHeader: React.FC<{
       <img
         src="https://res.cloudinary.com/dxx6qbtq6/image/upload/f_auto,q_auto,w_100,h_100/bn1ppo90cq42zgugzowg"
         alt="Profile"
-        className="w-12 h-12 rounded-full border-2 border-green-500"
+        className="h-12 w-12 rounded-full border-2 border-green-500"
       />
-      <div className='flex flex-col justify-center'>
+      <div className="flex flex-col justify-center">
         <span className="text-xl font-bold text-green-400">
           <TextOutput onComplete={() => setNameFinished(true)}>
             Alzera Cita

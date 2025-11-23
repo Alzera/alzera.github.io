@@ -1,38 +1,41 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 
 export const CommandInput: React.FC<{
   onSubmit: (command: string) => void;
   history: string[];
 }> = ({ onSubmit, history }) => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [historyIndex, setHistoryIndex] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const refocus = () => {
       inputRef.current?.focus();
-    }
+    };
     refocus();
 
-    window.addEventListener('click', refocus);
+    window.addEventListener("click", refocus);
     return () => {
-      window.removeEventListener('click', refocus);
+      window.removeEventListener("click", refocus);
     };
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       onSubmit(input);
-      setInput('');
+      setInput("");
       setHistoryIndex(null);
-    } else if (e.key === 'ArrowUp') {
+    } else if (e.key === "ArrowUp") {
       e.preventDefault();
       if (history.length > 0) {
-        const newIndex = historyIndex === null ? history.length - 1 : Math.max(0, historyIndex - 1);
+        const newIndex =
+          historyIndex === null
+            ? history.length - 1
+            : Math.max(0, historyIndex - 1);
         setHistoryIndex(newIndex);
         setInput(history[newIndex]);
       }
-    } else if (e.key === 'ArrowDown') {
+    } else if (e.key === "ArrowDown") {
       e.preventDefault();
       if (historyIndex !== null) {
         const newIndex = historyIndex + 1;
@@ -41,22 +44,22 @@ export const CommandInput: React.FC<{
           setInput(history[newIndex]);
         } else {
           setHistoryIndex(null);
-          setInput('');
+          setInput("");
         }
       }
     }
   };
 
   return (
-    <div className="flex items-center w-full">
-      <span className="text-green-500 mr-2">user@alzera:~$</span>
+    <div className="flex w-full items-center">
+      <span className="mr-2 text-green-500">user@alzera:~$</span>
       <input
         ref={inputRef}
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
-        className="bg-transparent border-none outline-none text-gray-900 dark:text-gray-200 grow font-mono text-base"
+        className="grow border-none bg-transparent font-mono text-base text-gray-900 outline-none dark:text-gray-200"
         autoFocus
         spellCheck={false}
         autoComplete="off"

@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { TextOutput } from '../TextOutput';
-import { Sequencer } from '../Sequencer';
-import { HelpOutput } from './HelpOutput';
-import { FaExclamationTriangle } from 'react-icons/fa';
+import React, { useEffect, useState } from "react";
+import { FaExclamationTriangle } from "react-icons/fa";
+
+import { HelpOutput } from "./HelpOutput";
+
+import { Sequencer } from "../Sequencer";
+import { TextOutput } from "../TextOutput";
 
 interface JokeData {
-  type: 'single' | 'twopart';
+  type: "single" | "twopart";
   joke?: string;
   setup?: string;
   delivery?: string;
@@ -28,16 +30,18 @@ export const NotFoundOutput: React.FC<{
 
     const fetchJoke = async () => {
       try {
-        const response = await fetch('https://sv443.net/jokeapi/v2/joke/Programming');
+        const response = await fetch(
+          "https://sv443.net/jokeapi/v2/joke/Programming",
+        );
         if (!response.ok) {
-          throw new Error('Failed to fetch joke');
+          throw new Error("Failed to fetch joke");
         }
         const data = await response.json();
         console.log(data);
         setJoke(data);
         setError(null);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
+        setError(err instanceof Error ? err.message : "An error occurred");
         setJoke(null);
       } finally {
         setLoading(false);
@@ -52,12 +56,15 @@ export const NotFoundOutput: React.FC<{
   }
 
   if (error || !joke) {
-    return showHelp ? <HelpOutput onComplete={onComplete} /> : <NotFoundText cmd={cmd} onComplete={onComplete} />;
+    return showHelp ? (
+      <HelpOutput onComplete={onComplete} />
+    ) : (
+      <NotFoundText cmd={cmd} onComplete={onComplete} />
+    );
   }
 
-  const jokeText = joke.type === 'single'
-    ? joke.joke!
-    : `${joke.setup}\n${joke.delivery}`;
+  const jokeText =
+    joke.type === "single" ? joke.joke! : `${joke.setup}\n${joke.delivery}`;
 
   return (
     <Sequencer onComplete={onComplete}>
@@ -68,10 +75,16 @@ export const NotFoundOutput: React.FC<{
   );
 };
 
-const NotFoundText = ({ cmd, onComplete }: { cmd: string; onComplete?: () => void }) => {
-  const notFoundMessage = cmd ?
-    `Command not found: ${cmd}. Type '<i>help</i>' for available commands.` :
-    `Type '<i>help</i>' for available commands`;
+const NotFoundText = ({
+  cmd,
+  onComplete,
+}: {
+  cmd: string;
+  onComplete?: () => void;
+}) => {
+  const notFoundMessage = cmd
+    ? `Command not found: ${cmd}. Type '<i>help</i>' for available commands.`
+    : `Type '<i>help</i>' for available commands`;
 
   return (
     <div className="flex items-start gap-2 text-red-400">

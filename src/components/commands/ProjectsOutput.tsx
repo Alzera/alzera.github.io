@@ -1,5 +1,6 @@
-import React from 'react';
-import { TextOutput } from '../TextOutput';
+import React from "react";
+
+import { TextOutput } from "../TextOutput";
 
 export const ProjectsOutput: React.FC<{
   onComplete?: () => void;

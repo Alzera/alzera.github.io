@@ -73,7 +73,7 @@ export const Terminal: React.FC = () => {
         outputContent = <AboutOutput onComplete={onOutputComplete} />;
         break;
       case 'skills':
-        outputContent = <SkillsOutput onComplete={onOutputComplete} />;
+        outputContent = <SkillsOutput showAsList={flag === '--list'} onComplete={onOutputComplete} />;
         break;
       case 'projects':
         outputContent = <ProjectsOutput onComplete={onOutputComplete} />;
