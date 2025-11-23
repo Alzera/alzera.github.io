@@ -125,27 +125,39 @@ export const Terminal: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 text-gray-200 min-h-screen flex flex-col">
-      <div className="grow">
-        {history.map((item) => (
-          <div key={item.id} className="mb-4">
-            <div className="flex items-center text-gray-400 mb-1">
-              <span className="text-green-500 mr-2">user@alzera:~$</span>
-              <span>{item.command}</span>
-            </div>
-            <div className="pl-4 border-l-2 border-gray-700 ml-1">
-              {item.output}
-            </div>
+    <div className="w-full min-h-screen flex items-center justify-center p-8 bg-[#e8e8e8] dark:bg-[#1a1919]">
+      <div className="w-full max-w-4xl">
+        <div className="bg-white dark:bg-[#2a2a2a] rounded-t-xl border border-gray-300 dark:border-gray-700 border-b-0">
+          <div className="flex items-center gap-2 px-4 py-3">
+            <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+            <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
           </div>
-        ))}
+        </div>
         
-        {isInputVisible && (
-          <div className="mt-2 mb-4">
-            <CommandInput onSubmit={handleCommand} history={history.map(h => h.command)} />
+        <div className="bg-white dark:bg-[#1a1919] rounded-b-xl border border-gray-300 dark:border-gray-700 border-t-0 p-6 overflow-auto" style={{ maxHeight: '80vh' }}>
+          <div>
+            {history.map((item) => (
+              <div key={item.id} className="mb-4">
+                <div className="flex items-center text-gray-400 mb-1">
+                  <span className="text-green-500 mr-2">user@alzera:~$</span>
+                  <span>{item.command}</span>
+                </div>
+                <div className="pl-4">
+                  {item.output}
+                </div>
+              </div>
+            ))}
+            
+            {isInputVisible && (
+              <div className="mt-2">
+                <CommandInput onSubmit={handleCommand} history={history.map(h => h.command)} />
+              </div>
+            )}
+            
+            <div ref={bottomRef} />
           </div>
-        )}
-        
-        <div ref={bottomRef} />
+        </div>
       </div>
     </div>
   );
