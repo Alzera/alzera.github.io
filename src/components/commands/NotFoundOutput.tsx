@@ -53,8 +53,8 @@ export const NotFoundOutput: React.FC<NotFoundOutputProps> = ({ cmd, showHelp, o
   }
 
   const notFoundMessage = showHelp ? helpText : cmd ?
-    `Command not found: ${cmd}. Type 'help' for available commands.` :
-    "Type 'help' for available commands";
+    `Command not found: ${cmd}. Type <i>'help'</i> for available commands.` :
+    "Type <i>'help'</i> for available commands";
 
   if (error || !joke) {
     return <TextOutput onComplete={onComplete}>{notFoundMessage}</TextOutput>;
@@ -63,7 +63,7 @@ export const NotFoundOutput: React.FC<NotFoundOutputProps> = ({ cmd, showHelp, o
   const jokeText = joke.type === 'single'
     ? joke.joke!
     : `${joke.setup}\n${joke.delivery}`;
-  
+
   return (
     <Sequencer onComplete={onComplete}>
       <TextOutput>{jokeText}</TextOutput>

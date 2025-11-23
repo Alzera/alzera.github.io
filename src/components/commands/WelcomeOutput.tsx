@@ -1,12 +1,14 @@
 import React from 'react';
 import { TextOutput } from '../TextOutput';
 
-interface SkillsOutputProps {
+interface WelcomeOutputProps {
   onComplete?: () => void;
 }
 
-export const WelcomeOutput: React.FC<SkillsOutputProps> = ({ onComplete }) => {
+export const WelcomeOutput: React.FC<WelcomeOutputProps> = ({ onComplete }) => {
   return (
-    <TextOutput onComplete={onComplete}>Welcome to Alzera's Terminal. Type 'help' to get started.</TextOutput>
+    <TextOutput onComplete={onComplete}>
+      {`Welcome to Alzera's Terminal. Type '<i>help</i>' to get started.`}
+    </TextOutput>
   );
 };

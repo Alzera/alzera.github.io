@@ -70,7 +70,7 @@ export const Terminal: React.FC = () => {
         setIsInputVisible(true);
         return;
       case '':
-        if (history.at(-1)?.command === '') {
+        if (history.at(-2)?.command === '') {
           outputContent = <NotFoundOutput showHelp cmd={trimmedCmd} onComplete={onOutputComplete} />;
         } else {
           outputContent = <NotFoundOutput cmd={trimmedCmd} onComplete={onOutputComplete} />;

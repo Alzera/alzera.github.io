@@ -17,7 +17,7 @@ export const ProjectsOutput: React.FC<ProjectsOutputProps> = ({ onComplete }) =>
           href="https://github.com/Alzera"
           target="_blank"
           rel="noopener noreferrer"
-          className="link"
+          className="link text-blue-400 no-underline hover:underline"
         >
           https://github.com/Alzera
         </a>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTypewriter } from '../hooks/useTypewriter';
 
 interface TextOutputProps {
@@ -7,9 +7,9 @@ interface TextOutputProps {
 }
 
 export const TextOutput: React.FC<TextOutputProps> = ({ children, onComplete }) => {
-  const { displayedText, isTyping } = useTypewriter(children, 20);
+  const { displayedText, isTyping } = useTypewriter(children);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isTyping && onComplete) {
       onComplete();
     }
@@ -17,7 +17,7 @@ export const TextOutput: React.FC<TextOutputProps> = ({ children, onComplete }) 
 
   return (
     <div className="text-output">
-      {displayedText}
+      <span dangerouslySetInnerHTML={{ __html: displayedText }} />
       {isTyping && <span className="cursor">_</span>}
     </div>
   );

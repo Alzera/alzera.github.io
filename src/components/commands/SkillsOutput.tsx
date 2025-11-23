@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextOutput } from '../TextOutput';
+import { Sequencer } from '../Sequencer';
 
 interface SkillsOutputProps {
   onComplete?: () => void;
@@ -7,9 +8,10 @@ interface SkillsOutputProps {
 
 export const SkillsOutput: React.FC<SkillsOutputProps> = ({ onComplete }) => {
   return (
-    <TextOutput onComplete={onComplete}>
-      {`Languages & Frameworks:
-  - Flutter (Active)
+    <Sequencer onComplete={onComplete}>
+      <TextOutput> Languages & Frameworks:</TextOutput>
+      <TextOutput>
+        {`  - Flutter (Active)
   - Next.js (Active)
   - Vue.js (Active)
   - React
@@ -18,6 +20,7 @@ export const SkillsOutput: React.FC<SkillsOutputProps> = ({ onComplete }) => {
   - Android / iOS (Native)
   - Xamarin
   - CodeIgniter / PHP`}
-    </TextOutput>
+      </TextOutput>
+    </Sequencer>
   );
 };
