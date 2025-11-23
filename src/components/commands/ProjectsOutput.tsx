@@ -2,11 +2,9 @@ import React from 'react';
 import { Sequencer } from '../Sequencer';
 import { TextOutput } from '../TextOutput';
 
-interface ProjectsOutputProps {
+export const ProjectsOutput: React.FC<{
   onComplete?: () => void;
-}
-
-export const ProjectsOutput: React.FC<ProjectsOutputProps> = ({ onComplete }) => {
+}> = ({ onComplete }) => {
   return (
     <Sequencer onComplete={onComplete}>
       <div>
@@ -17,7 +15,7 @@ export const ProjectsOutput: React.FC<ProjectsOutputProps> = ({ onComplete }) =>
           href="https://github.com/Alzera"
           target="_blank"
           rel="noopener noreferrer"
-          className="link text-blue-400 no-underline hover:underline"
+          className="text-blue-400 no-underline hover:underline"
         >
           https://github.com/Alzera
         </a>

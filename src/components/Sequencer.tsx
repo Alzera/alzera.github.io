@@ -25,24 +25,19 @@ export const Sequencer: React.FC<SequencerProps> = ({ children, onComplete }) =>
       {childrenArray.map((child, index) => {
         if (index > currentIndex) return null;
 
-        // If it's the current item, we need to attach the completion handler
         if (index === currentIndex) {
           if (React.isValidElement(child)) {
-            // Check if the child is a TextOutput
-            if (child.type === TextOutput) {
+            if (child.type === TextOutput || (child.props as any).sequenced) {
               return React.cloneElement(child as React.ReactElement<any>, {
                 onComplete: handleChildComplete,
               });
             } else {
-              // For non-typing elements (like images or divs), show them and proceed immediately
-              // Use a small timeout to allow render
-              setTimeout(handleChildComplete, 100); // 100ms delay for effect
+              setTimeout(handleChildComplete, 100); 
               return child;
             }
           }
         }
 
-        // Already completed items
         return child;
       })}
     </>

@@ -11,10 +11,22 @@
   }
 
   body {
-    margin: 0;
-    min-height: 100vh;
-    background-color: #121111;
-    color: #e5e7eb;
+    @apply m-0 min-h-screen bg-[#121111] text-gray-200;
+  }
+
+  hr {
+    @apply h-px my-4 border-0 border-b border-gray-700;
+  }
+}
+
+@layer utilities {
+  .animate-blink {
+    animation: blink 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }
 }
 

@@ -2,11 +2,9 @@ import React from 'react';
 import { TextOutput } from '../TextOutput';
 import { Sequencer } from '../Sequencer';
 
-interface SkillsOutputProps {
+export const SkillsOutput: React.FC<{
   onComplete?: () => void;
-}
-
-export const SkillsOutput: React.FC<SkillsOutputProps> = ({ onComplete }) => {
+}> = ({ onComplete }) => {
   return (
     <Sequencer onComplete={onComplete}>
       <TextOutput> Languages & Frameworks:</TextOutput>

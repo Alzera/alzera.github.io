@@ -6,7 +6,7 @@ import { SkillsOutput } from './commands/SkillsOutput';
 import { ProjectsOutput } from './commands/ProjectsOutput';
 import { ContactOutput } from './commands/ContactOutput';
 import { NotFoundOutput } from './commands/NotFoundOutput';
-import './Terminal.css';
+
 import { WelcomeOutput } from './commands/WelcomeOutput';
 
 interface HistoryItem {
@@ -93,22 +93,22 @@ export const Terminal: React.FC = () => {
   };
 
   return (
-    <div className="terminal-container">
-      <div className="terminal-content">
+    <div className="w-full max-w-4xl mx-auto p-4 text-gray-200 min-h-screen flex flex-col">
+      <div className="grow">
         {history.map((item) => (
-          <div key={item.id} className="history-item">
-            <div className="command-line">
-              <span className="prompt-label">user@alzera:~$</span>
+          <div key={item.id} className="mb-4">
+            <div className="flex items-center text-gray-400 mb-1">
+              <span className="text-green-500 mr-2">user@alzera:~$</span>
               <span>{item.command}</span>
             </div>
-            <div className="command-output">
+            <div className="pl-4 border-l-2 border-gray-700 ml-1">
               {item.output}
             </div>
           </div>
         ))}
         
         {isInputVisible && (
-          <div className="input-area">
+          <div className="mt-2 mb-4">
             <CommandInput onSubmit={handleCommand} history={history.map(h => h.command)} />
           </div>
         )}

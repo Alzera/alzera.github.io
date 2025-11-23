@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { TextOutput } from '../TextOutput';
 import { Sequencer } from '../Sequencer';
-import { helpText } from './HelpOutput';
-
-interface NotFoundOutputProps {
-  showHelp?: boolean;
-  cmd: string;
-  onComplete?: () => void;
-}
+import { HelpOutput } from './HelpOutput';
+import { FaExclamationTriangle } from 'react-icons/fa';
 
 interface JokeData {
   type: 'single' | 'twopart';
@@ -16,7 +11,11 @@ interface JokeData {
   delivery?: string;
 }
 
-export const NotFoundOutput: React.FC<NotFoundOutputProps> = ({ cmd, showHelp, onComplete }) => {
+export const NotFoundOutput: React.FC<{
+  showHelp?: boolean;
+  cmd: string;
+  onComplete?: () => void;
+}> = ({ cmd, showHelp, onComplete }) => {
   const [joke, setJoke] = useState<JokeData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -52,12 +51,8 @@ export const NotFoundOutput: React.FC<NotFoundOutputProps> = ({ cmd, showHelp, o
     return <TextOutput>Loading joke...</TextOutput>;
   }
 
-  const notFoundMessage = showHelp ? helpText : cmd ?
-    `Command not found: ${cmd}. Type <i>'help'</i> for available commands.` :
-    "Type <i>'help'</i> for available commands";
-
   if (error || !joke) {
-    return <TextOutput onComplete={onComplete}>{notFoundMessage}</TextOutput>;
+    return showHelp ? <HelpOutput onComplete={onComplete} /> : <NotFoundText cmd={cmd} onComplete={onComplete} />;
   }
 
   const jokeText = joke.type === 'single'
@@ -68,7 +63,20 @@ export const NotFoundOutput: React.FC<NotFoundOutputProps> = ({ cmd, showHelp, o
     <Sequencer onComplete={onComplete}>
       <TextOutput>{jokeText}</TextOutput>
       <hr />
-      <TextOutput>{notFoundMessage}</TextOutput>
+      {showHelp ? <HelpOutput /> : <NotFoundText cmd={cmd} />}
     </Sequencer>
+  );
+};
+
+const NotFoundText = ({ cmd, onComplete }: { cmd: string; onComplete?: () => void }) => {
+  const notFoundMessage = cmd ?
+    `Command not found: ${cmd}. Type '<i>help</i>' for available commands.` :
+    `Type '<i>help</i>' for available commands`;
+
+  return (
+    <div className="flex items-start gap-2 text-red-400">
+      <FaExclamationTriangle className="mt-1 shrink-0" />
+      <TextOutput onComplete={onComplete}>{notFoundMessage}</TextOutput>
+    </div>
   );
 };

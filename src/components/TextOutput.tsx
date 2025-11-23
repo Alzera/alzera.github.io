@@ -1,12 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useTypewriter } from '../hooks/useTypewriter';
 
 interface TextOutputProps {
   children: string;
   onComplete?: () => void;
+  className?: string;
 }
 
-export const TextOutput: React.FC<TextOutputProps> = ({ children, onComplete }) => {
+export const TextOutput: React.FC<TextOutputProps> = ({ children, onComplete, className = '' }) => {
   const { displayedText, isTyping } = useTypewriter(children);
 
   useEffect(() => {
@@ -16,9 +17,9 @@ export const TextOutput: React.FC<TextOutputProps> = ({ children, onComplete }) 
   }, [isTyping, onComplete]);
 
   return (
-    <div className="text-output">
+    <div className={`whitespace-pre-wrap ${className}`}>
       <span dangerouslySetInnerHTML={{ __html: displayedText }} />
-      {isTyping && <span className="cursor">_</span>}
+      {isTyping && <span className="animate-blink">_</span>}
     </div>
   );
 };

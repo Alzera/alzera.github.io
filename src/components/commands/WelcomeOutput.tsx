@@ -1,14 +1,16 @@
 import React from 'react';
 import { TextOutput } from '../TextOutput';
+import { FaTerminal } from 'react-icons/fa';
 
-interface WelcomeOutputProps {
+export const WelcomeOutput: React.FC<{
   onComplete?: () => void;
-}
-
-export const WelcomeOutput: React.FC<WelcomeOutputProps> = ({ onComplete }) => {
+}> = ({ onComplete }) => {
   return (
-    <TextOutput onComplete={onComplete}>
-      {`Welcome to Alzera's Terminal. Type '<i>help</i>' to get started.`}
-    </TextOutput>
+    <div className="flex items-start gap-3">
+      <FaTerminal className="text-green-500 mt-1 shrink-0" />
+      <TextOutput onComplete={onComplete}>
+        {`Welcome to Alzera's Terminal. Type '<i>help</i>' to get started.`}
+      </TextOutput>
+    </div>
   );
 };

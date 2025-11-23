@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-interface CommandInputProps {
+export const CommandInput: React.FC<{
   onSubmit: (command: string) => void;
   history: string[];
-}
-
-export const CommandInput: React.FC<CommandInputProps> = ({ onSubmit, history }) => {
+}> = ({ onSubmit, history }) => {
   const [input, setInput] = useState('');
   const [historyIndex, setHistoryIndex] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -50,15 +48,15 @@ export const CommandInput: React.FC<CommandInputProps> = ({ onSubmit, history })
   };
 
   return (
-    <div className="input-wrapper flex items-center w-full">
-      <span className="prompt-label text-green-500 mr-2">user@alzera:~$</span>
+    <div className="flex items-center w-full">
+      <span className="text-green-500 mr-2">user@alzera:~$</span>
       <input
         ref={inputRef}
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
-        className="input-field bg-transparent border-none outline-none text-gray-200 grow font-mono text-base"
+        className="bg-transparent border-none outline-none text-gray-200 grow font-mono text-base"
         autoFocus
         spellCheck={false}
         autoComplete="off"

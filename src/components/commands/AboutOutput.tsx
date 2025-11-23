@@ -2,32 +2,50 @@ import React from 'react';
 import { Sequencer } from '../Sequencer';
 import { TextOutput } from '../TextOutput';
 
-interface AboutOutputProps {
+const AboutHeader: React.FC<{
   onComplete?: () => void;
-}
+  sequenced?: boolean;
+}> = ({ onComplete }) => {
+  const [nameFinished, setNameFinished] = React.useState(false);
 
-export const AboutOutput: React.FC<AboutOutputProps> = ({ onComplete }) => {
   return (
-    <div className="about-container">
+    <div className="flex items-center gap-4">
+      <img
+        src="https://res.cloudinary.com/dxx6qbtq6/image/upload/f_auto,q_auto,w_100,h_100/bn1ppo90cq42zgugzowg"
+        alt="Profile"
+        className="w-18 h-18 rounded-full border-2 border-green-500"
+      />
+      <div className='flex flex-col justify-center'>
+        <span className="text-xl font-bold text-green-400">
+          <TextOutput onComplete={() => setNameFinished(true)}>
+            Alzera Cita
+          </TextOutput>
+        </span>
+        {nameFinished && (
+          <TextOutput onComplete={onComplete}>
+            I am a full-stack web developer and mobile developer.
+          </TextOutput>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export const AboutOutput: React.FC<{
+  onComplete?: () => void;
+}> = ({ onComplete }) => {
+  return (
+    <div className="flex flex-col gap-4">
       <Sequencer onComplete={onComplete}>
-        <div className="about-header">
-          <img
-            src="https://res.cloudinary.com/dxx6qbtq6/image/upload/f_auto,q_auto,w_100,h_100/bn1ppo90cq42zgugzowg"
-            alt="Profile"
-            className="profile-image"
-          />
-          <div>
-            <h1 className="about-title">Alzera Cita</h1>
-            <TextOutput>
-              I am a full-stack web developer and mobile developer.
-            </TextOutput>
-          </div>
-        </div>
+        <AboutHeader sequenced={true} />
         <TextOutput>
-          {`Hi, I'm a programmer who has been learning since vocational high school and actively working since 2017.
-I've worked with various frameworks such as CodeIgniter, Android, iOS, WordPress, and Xamarin.
-Currently, I'm actively using Flutter, Next.js, and Vue.js.
-I'm someone who loves learning new things, making it easy for me to switch frameworks or languages.`}
+          {`I am a passionate creator of digital experiences—crafting websites, iPhone apps, and Android applications with seven years of hands-on expertise.
+
+Over the years, I’ve explored a vibrant spectrum of programming languages, from Java, Kotlin, and Swift to C#, Dart, HTML, CSS, PHP, JavaScript, and TypeScript. Each language has shaped the way I approach problem-solving and elegant code design.
+
+My journey has also led me through a rich landscape of frameworks and tools, including CodeIgniter, Laravel, Bootstrap, WordPress, Svelte, Xamarin, and Flutter—each one expanding my ability to build seamless, intuitive, and high-performing digital products.
+
+Fueled by curiosity and a deep love for technology, I continuously stay at the forefront of industry trends. I thrive on new challenges and take pride in delivering work that is thoughtful, polished, and impactful.`}
         </TextOutput>
       </Sequencer>
     </div>
