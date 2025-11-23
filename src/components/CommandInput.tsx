@@ -9,10 +9,14 @@ export const CommandInput: React.FC<{
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const refocus = () => {
+    inputRef.current?.focus();
+
+    const refocus = (e: MouseEvent) => {
+      if (e.target instanceof HTMLCanvasElement) {
+        return;
+      }
       inputRef.current?.focus();
     };
-    refocus();
 
     window.addEventListener("click", refocus);
     return () => {
