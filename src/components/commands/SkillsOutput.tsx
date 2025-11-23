@@ -75,12 +75,12 @@ export const SkillsOutput: React.FC<{
 
   const frameworks = [
     { name: 'Flutter', status: '(Active)', icon: <SiFlutter />, color: 'text-cyan-400' },
-    { name: 'Next.js', status: '(Active)', icon: <SiNextdotjs />, color: 'text-white' },
+    { name: 'Next.js', status: '(Active)', icon: <SiNextdotjs />, color: 'text-gray-900 dark:text-white' },
     { name: 'Vue.js', status: '(Active)', icon: <SiVuedotjs />, color: 'text-green-400' },
     { name: 'React', status: '(Active)', icon: <SiReact />, color: 'text-blue-400' },
     { name: 'Node.js', status: '(Active)', icon: <SiNodedotjs />, color: 'text-green-500' },
     { name: 'Android (Native)', status: '', icon: <SiAndroid />, color: 'text-green-400' },
-    { name: 'iOS (Native)', status: '', icon: <SiApple />, color: 'text-white' },
+    { name: 'iOS (Native)', status: '', icon: <SiApple />, color: 'text-gray-900 dark:text-white' },
     { name: 'Xamarin', status: '', icon: <SiDotnet />, color: 'text-blue-600' },
     { name: 'CodeIgniter', status: '', icon: <SiCodeigniter />, color: 'text-orange-400' },
   ];

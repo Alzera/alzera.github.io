@@ -56,7 +56,7 @@ export const CommandInput: React.FC<{
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
-        className="bg-transparent border-none outline-none text-gray-200 grow font-mono text-base"
+        className="bg-transparent border-none outline-none text-gray-900 dark:text-gray-200 grow font-mono text-base"
         autoFocus
         spellCheck={false}
         autoComplete="off"

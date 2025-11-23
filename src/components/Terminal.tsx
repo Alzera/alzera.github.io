@@ -125,9 +125,9 @@ export const Terminal: React.FC = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center p-8 bg-[#e8e8e8] dark:bg-[#1a1919]">
-      <div className="w-full max-w-4xl">
-        <div className="bg-white dark:bg-[#2a2a2a] rounded-t-xl border border-gray-300 dark:border-gray-700 border-b-0">
+    <div className="w-full min-h-screen flex items-center justify-center p-8">
+      <div className="w-full max-w-4xl rounded-xl overflow-hidden border border-gray-300 dark:border-gray-700">
+        <div className="bg-white dark:bg-[#2a2a2a] border-b border-gray-300 dark:border-gray-700">
           <div className="flex items-center gap-2 px-4 py-3">
             <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
             <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
@@ -135,7 +135,7 @@ export const Terminal: React.FC = () => {
           </div>
         </div>
         
-        <div className="bg-white dark:bg-[#1a1919] rounded-b-xl border border-gray-300 dark:border-gray-700 border-t-0 p-6 overflow-auto" style={{ maxHeight: '80vh' }}>
+        <div className="bg-white dark:bg-slate-900 p-6 overflow-auto max-h-[80vh]">
           <div>
             {history.map((item) => (
               <div key={item.id} className="mb-4">
