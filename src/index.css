@@ -9,114 +9,14 @@
     font-family: 'Fira Code', monospace;
     line-height: 1.5;
     font-weight: 400;
-    color-scheme: dark;
-    --bg-primary: #121111;
-    --bg-secondary: #1a1919;
-    --text-primary: #e5e7eb;
-    --text-secondary: #9ca3af;
-    --border-color: #374151;
-    --accent-green: #22c55e;
-    --accent-red: #ef4444;
-  }
-
-  html[data-theme="light"] {
-    color-scheme: light;
-    --bg-primary: #f3f4f6;
-    --bg-secondary: #e5e7eb;
-    --text-primary: #1f2937;
-    --text-secondary: #4b5563;
-    --border-color: #d1d5db;
-    --accent-green: #16a34a;
-    --accent-red: #dc2626;
   }
 
   body {
-    @apply m-0 min-h-screen;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
+    @apply m-0 min-h-screen bg-gray-100 dark:bg-[#1a1919] text-gray-900 dark:text-gray-200;
   }
 
   hr {
-    @apply h-px my-4 border-0 border-b;
-    border-color: var(--border-color);
-  }
-}
-
-@layer components {
-  .text-gray-200 {
-    color: var(--text-primary) !important;
-  }
-
-  .text-gray-400 {
-    color: var(--text-secondary) !important;
-  }
-
-  .text-green-500 {
-    color: var(--accent-green) !important;
-  }
-
-  .text-red-400 {
-    color: var(--accent-red) !important;
-  }
-
-  .text-green-400 {
-    color: var(--accent-green) !important;
-  }
-
-  .text-yellow-400 {
-    color: #facc15 !important;
-  }
-
-  html[data-theme="light"] .text-yellow-400 {
-    color: #ca8a04 !important;
-  }
-
-  .text-blue-400 {
-    color: #60a5fa !important;
-  }
-
-  html[data-theme="light"] .text-blue-400 {
-    color: #2563eb !important;
-  }
-
-  .text-cyan-400 {
-    color: #22d3ee !important;
-  }
-
-  html[data-theme="light"] .text-cyan-400 {
-    color: #0891b2 !important;
-  }
-
-  .text-purple-400 {
-    color: #c084fc !important;
-  }
-
-  html[data-theme="light"] .text-purple-400 {
-    color: #9333ea !important;
-  }
-
-  .text-pink-400 {
-    color: #f472b6 !important;
-  }
-
-  html[data-theme="light"] .text-pink-400 {
-    color: #ec4899 !important;
-  }
-
-  .bg-\[\#121111\] {
-    background-color: var(--bg-primary) !important;
-  }
-
-  .border-gray-700 {
-    border-color: var(--border-color) !important;
-  }
-
-  .border-gray-300 {
-    border-color: var(--border-color) !important;
-  }
-
-  .scrollbar-track {
-    background-color: var(--bg-primary) !important;
+    @apply h-px my-4 border-0 border-b border-gray-300 dark:border-gray-700;
   }
 }
 
@@ -137,15 +37,13 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  @apply bg-gray-100 dark:bg-[#1a1919];
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--text-secondary);
-  border-radius: 5px;
+  @apply bg-gray-400 dark:bg-gray-600 rounded;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
-  opacity: 0.8;
+  @apply bg-gray-500 dark:bg-gray-500;
 }
